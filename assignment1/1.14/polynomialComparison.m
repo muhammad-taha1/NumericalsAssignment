@@ -8,7 +8,8 @@ function polynomialComparison()
 res1 = [];
 res2 = [];
 
-% loop, compute the values and store in res1 and res2
+% loop, compute the values and store in res1 and res2. Range and step of
+% loop is specified according to the question
 for x = 0.995 : 0.0001 : 1.005
     eq1 = (x-1)^6;
     res1 = [res1 eq1];
@@ -32,5 +33,6 @@ title('polynomial vs expanded form comparison');
 legend('polynomial', 'expanded form');
 xlabel('x');
 ylabel('y*10^{13}');
+grid on
 
 end

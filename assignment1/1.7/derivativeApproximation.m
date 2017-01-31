@@ -21,7 +21,6 @@ for x = 1 : h : outerLimit
     f = [f sin(x)]; % using sin as the function in this example
 end
 
-
 fPrime = [];
 
 if (method == 1)

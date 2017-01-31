@@ -11,9 +11,10 @@ for i = 1 : 10
     % building the error vector. Differentiation function is called and the
     % error values returned from there. The 2nd input defines which
     % approximation method shall be used
-    errors = [errors derivativeApproximation(1/2^i, 2)];
+    errors = [errors derivativeApproximation(1/2^i, 1)];
 end
 
+min(errors)
 figure
 plot(log10(h), log10(errors));
 xlabel('log(h)');

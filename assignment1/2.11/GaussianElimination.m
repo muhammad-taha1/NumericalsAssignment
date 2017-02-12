@@ -56,14 +56,14 @@ switch mode
         for i = 1 : n
             [maxA, maxVal] = max(A(i:n, i:n));
             
-            % pivot search
-            [p, maxl] = max(maxA);
+            % search for pivot
+            [~, maxl] = max(maxA);
             maxk = maxVal(maxl)+i-1;
             
             maxl = maxl+i-1;
             p = A(maxk,maxl);
             
-            if i ~= maxk
+            if (i ~= maxk)
                 %swap rows
                 temp = A(i,:);
                 A(i,:) = A(maxk,:);
@@ -74,21 +74,23 @@ switch mode
                 b(maxk) = temp2;
             end
             
-            if i ~= maxl
+            if (i ~= maxl)
                 % swap columns
                 temp = A(:,i);
                 A(:,i) = A(:,maxl);
                 A(:,maxl) = temp;
                 
-                temp2 = b(i);
-                b(i) = b(maxl);
-                b(maxl) = temp2;
+                % swap indexes
+                temp2 = idx(i);
+                idx(i) = idx(maxl);
+                idx(maxl) = temp2; 
             end
             
             for j = (i+1):n
                 % perform elimination
-                A(j,(i+1):n) = A(j,(i+1):n) - A(i,(i+1))*(A(j,i)/p);
+                A(j,(i+1):n) = A(j,(i+1):n) - A(i,(i+1):n)*(A(j,i)/p);
                 b(j) = b(j)-b(i)*(A(j,i)/p);
+                
             end
         end
         
@@ -110,4 +112,10 @@ if (strcmp(mode, 'pivoting'))
     end  
 end
 
+% compute the residual and error norms for the solution
+r = b-A*x;
+x_ans = ones(3,1);
+x_ans(2) = 10^-5;
+residual_norm = norm(r, inf)
+error_norm = norm(x - x_ans, inf)
 end

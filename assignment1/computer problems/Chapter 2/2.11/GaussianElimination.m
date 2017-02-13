@@ -29,7 +29,7 @@ switch mode
         
     case ('partial pivoting')
         for i = 1 : n
-            [p, maxVal] = max(abs(A(i:n,i)));
+            [~, maxVal] = max(abs(A(i:n,i)));
             maxVal = maxVal + i - 1;
             p = A(maxVal, i);
             
@@ -114,8 +114,8 @@ end
 
 % compute the residual and error norms for the solution
 r = b-A*x;
-x_ans = ones(3,1);
-x_ans(2) = 10^-5;
+x_ans = zeros(3,1);
+
 residual_norm = norm(r, inf)
 error_norm = norm(x - x_ans, inf)
 end

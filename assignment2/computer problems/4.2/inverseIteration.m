@@ -20,7 +20,7 @@ while (delx > tol)
     y = U\(L\x);
     y = y/norm(y,inf);
     delx = norm(abs(y) - abs(x), inf);
-    x = y;
+    x = y;a
 end
 
 y = A*x;

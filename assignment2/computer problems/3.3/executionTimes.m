@@ -40,7 +40,10 @@ ns = 100:10:1000;
 ts = x(1)+ns.*(x(2)+ns.*(x(3)+ns*x(4)));
 
 plot(n,t,'bx',ns,ts,'r-');
-
+title('Execution times against n');
+xlabel('n');
+ylabel('t (s)');
+grid on;
 % using the above method, we can estimate the time for matrix of order
 % 10,000
 t_10000 = x(1)+10000*(x(2)+10000*(x(3)+10000*x(4)))

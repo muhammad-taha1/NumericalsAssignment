@@ -30,12 +30,13 @@ for i = 1 : length(t)
 end
 
 % plot results and original data points
-title('data points vs polynomial curves');
 plot(t,y,'--x');
 hold on
 plot(timeSlots, ySlots);
 grid on
 xlabel('t');
-xlabel('y');
+ylabel('y');
 legend('data points','deg0','deg1','deg2','deg3','deg4','deg5');
+title('data points vs polynomial curves');
+
 end

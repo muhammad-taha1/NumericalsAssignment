@@ -1,5 +1,5 @@
-5.1 similar to 5.3 in chegg
-5.13 not in chegg
+5.1 = =5.2 in chegg
+5.13 = 5.23
 
 6.9 = 6.9
 6.11 = 6.11

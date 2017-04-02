@@ -1,91 +1,37 @@
-%% Solves qs 5.2 for assignment 3
+%% Solves qs 5.1 for assignment 3
 
-% this function computes the Newton, bisection and secant methods for solving
-% non-linear equations in one dimension
+% this function computes the convergence of the given functions
 function convergence()
 
-% enter the function to be tested here
-f = inline('exp(-x) - x', 'x');
-df = inline('-exp(-x) - 1', 'x');
+f = {'(x^2+2)/3', 'sqrt(3*x-2)', '3-2/x', '(x^2-2)/(2*x-3)'};
 
-% enter the range of values with which to test the functions with
-a = 0;
-b = 1;
-
-tol = 10^-10;
+tol = eps;
 maxIteration = 10;
 
-% initialization
-iterationCnt = 0;
+xRoot = 2;
 
-fa = f(a);
-fb = f(b);
-
-fprintf('bisection method');
-
-while (b-a > tol && iterationCnt < maxIteration)
-    iterationCnt = iterationCnt + 1;
-    % mid point
-    m = (a+b)/2;
-    fm = f(m);
+% repeat the computations below for all 4 given equations
+for i = 1 : length(f)
+    grad = inline(f{i}, 'x');
+    iteration = 0;
+    % guess for x, for initialization purposes
+    x = 3;
+    error = abs(x - xRoot);
     
-    if (sign(fa) == sign(fm))
-        a = m;
-        fa = fm;
-    else
-        b = m;
-        fb = fm;
+    % repeat until error is small
+    while (error > tol && iteration < maxIteration)
+        iteration = iteration + 1;
+        x = grad(x);
+        errorPrime = abs(x - xRoot);
+        ratio = errorPrime/error;
+        error = errorPrime;
     end
-end
-
-iterationCnt
-a
-fa
-b
-fb
-
-fprintf('Newton method');
-
-delx = 1;
-iterationCnt = 0;
-x = a;
-
-fx = f(x);
-
-while (abs(delx) > tol && iterationCnt < maxIteration)
-    iterationCnt = iterationCnt + 1;
-    d = df(x);
-    delx = -fx/d;
-    x = x + delx;
-    fx = f(x);
-end
-
-iterationCnt
-x
-fx
-
-fprintf('Secant method');
-
-delx = 1;
-iterationCnt = 0;
-x0 = a;
-fx0 = f(x0);
-
-x1 = b;
-fx1 = f(x1);
-
-while (abs(delx) > tol && iterationCnt < maxIteration)
-    iterationCnt = iterationCnt + 1;
-    d = (fx1 - fx0)/(x1 - x0);
-    delx = -fx1/d;
-    x0 = x1;
-    fx0 = fx1;
     
-    x1 = x0 - fx0/d;
-    fx1 = f(x1);
+    % print out the results for each function
+    f{i}
+    error
+    ratio
+    
 end
 
-options = optimset('TolX', tol, 'MaxIter', maxIteration);
-
-[x, fx, exitflag, output] = fzero(f, [a b], options)
 end
